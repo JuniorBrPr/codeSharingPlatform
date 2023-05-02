@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Latest</title>
+</head>
+<body>
+<div th:each="codeSnippet : ${codeSnippets}">
+    <div>
+        <span th:text="${codeSnippet.getDate()}"></span>
+        <pre th:text="${codeSnippet.getCode()}"></pre>
+    </div>
+</div>
+</body>
+</html>

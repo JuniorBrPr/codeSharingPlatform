@@ -1,10 +1,11 @@
-package platform;
+package platform.services;
 
 import org.springframework.stereotype.Service;
 import platform.models.CodeSnippet;
-import platform.models.CodeSnippetRepository;
+import platform.models.repositories.CodeSnippetRepository;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class CodeSnippetService {
@@ -14,11 +15,16 @@ public class CodeSnippetService {
         this.codeSnippetRepository = codeSnippetRepository;
     }
 
-    public CodeSnippet getCodeSnippet() {
-        return codeSnippetRepository.getCodeSnippet();
+    public CodeSnippet getCodeSnippet(int id) {
+        return codeSnippetRepository.getCodeSnippet(id);
     }
 
-    public void createSnippet(String snippet) {
+    public int createSnippet(String snippet) {
         codeSnippetRepository.setCodeSnippet(new CodeSnippet(snippet, LocalDate.now()));
+        return codeSnippetRepository.getCounter() - 1;
+    }
+
+    public List<CodeSnippet> getLatestSnippets() {
+        return codeSnippetRepository.getLatestSnippets();
     }
 }

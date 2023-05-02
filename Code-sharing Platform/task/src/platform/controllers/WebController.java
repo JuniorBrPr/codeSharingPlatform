@@ -1,12 +1,12 @@
 package platform.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import platform.CodeSnippetService;
+import platform.services.CodeSnippetService;
 import platform.models.CodeSnippet;
 
 @Controller
@@ -17,10 +17,9 @@ public class WebController {
         this.codeSnippetService = codeSnippetService;
     }
 
-    @GetMapping("/code")
-    public String getCodeSnippetHtml(Model model) {
-        model.addAttribute("code", codeSnippetService.getCodeSnippet().getCode());
-        model.addAttribute("date", codeSnippetService.getCodeSnippet().getDate());
+    @GetMapping("/code/{id}")
+    public String getCodeSnippetHtml(@PathVariable int id, Model model) {
+        model.addAttribute("codeSnippet", codeSnippetService.getCodeSnippet(id));
         return "code";
     }
 
@@ -34,5 +33,11 @@ public class WebController {
     public String postCodeSnippetHtml(@ModelAttribute CodeSnippet snippet) {
         codeSnippetService.createSnippet(snippet.getCode());
         return "redirect:/code";
+    }
+
+    @GetMapping("/code/latest")
+    public String getLatestCodeSnippetsHtml(Model model) {
+        model.addAttribute("codeSnippets", codeSnippetService.getLatestSnippets());
+        return "latestSnippets";
     }
 }
