@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create</title>
+</head>
+<body>
+<h1>Form</h1>
+
+<form method="post" th:action="@{/code/new}" th:object="${snippet}">
+    <label for="code_snippet">Code:</label><textarea id="code_snippet" th:field="*{code}"> </textarea>
+    <button id="send_snippet" type="submit">Submit</button>
+</form>
+</body>
+</html>
