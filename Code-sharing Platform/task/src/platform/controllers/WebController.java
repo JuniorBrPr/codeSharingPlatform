@@ -32,7 +32,7 @@ public class WebController {
     @PostMapping("/code/new")
     public String postCodeSnippetHtml(@ModelAttribute CodeSnippet snippet) {
         codeSnippetService.createSnippet(snippet.getCode());
-        return "redirect:/code";
+        return "redirect:/latestSnippets";
     }
 
     @GetMapping("/code/latest")

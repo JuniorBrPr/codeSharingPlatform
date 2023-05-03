@@ -16,15 +16,14 @@ public class CodeSnippetService {
     }
 
     public CodeSnippet getCodeSnippet(int id) {
-        return codeSnippetRepository.getCodeSnippet(id);
+        return codeSnippetRepository.findById(id);
     }
 
-    public int createSnippet(String snippet) {
-        codeSnippetRepository.setCodeSnippet(new CodeSnippet(snippet, LocalDate.now()));
-        return codeSnippetRepository.getCounter() - 1;
+    public long createSnippet(String snippet) {
+        return codeSnippetRepository.save(new CodeSnippet(snippet, LocalDate.now())).getId();
     }
 
     public List<CodeSnippet> getLatestSnippets() {
-        return codeSnippetRepository.getLatestSnippets();
+        return codeSnippetRepository.findTop10ByOrderByIdDesc();
     }
 }
