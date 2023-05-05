@@ -8,6 +8,6 @@ import java.util.List;
 
 @Service
 public interface CodeSnippetRepository extends CrudRepository<CodeSnippet, Long> {
-    CodeSnippet findById(long id);
-    List<CodeSnippet> findTop10ByOrderByIdDesc();
+    CodeSnippet findByUUID(String UUID);
+    List<CodeSnippet> findTop10ByTimeRestrictionFalseAndViewRestrictionFalseOrderByIdDesc();
 }

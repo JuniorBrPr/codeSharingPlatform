@@ -5,10 +5,10 @@
     <title>Create</title>
 </head>
 <body>
-<h1>Form</h1>
-
 <form method="post" th:action="@{/code/new}" th:object="${snippet}">
     <label for="code_snippet">Code:</label><textarea id="code_snippet" th:field="*{code}"> </textarea>
+    <label for="time_restriction">Time:</label><input id="time_restriction" type="text" th:field="*{time}"/>
+    <label for="views_restriction">Views:</label><input id="views_restriction" type="text" th:field="*{views}"/>
     <button id="send_snippet" type="submit">Submit</button>
 </form>
 </body>

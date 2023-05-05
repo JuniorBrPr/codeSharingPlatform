@@ -1,5 +1,6 @@
 package platform.models;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
@@ -8,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 
 @Entity
 public class CodeSnippet {
@@ -21,33 +21,68 @@ public class CodeSnippet {
     private String code;
 
     @NotNull
-    private LocalDate date;
+    String date;
+
+    private long time;
+
+    private long views;
+
+    @JsonIgnore
+    private boolean timeRestriction;
+
+    @JsonIgnore
+    private boolean viewRestriction;
+
+    private String UUID;
 
     public CodeSnippet() {
     }
 
-    public CodeSnippet(String code, LocalDate date) {
+    public CodeSnippet(String code, String date, long views, long time) {
         this.code = code;
         this.date = date;
+        this.views = Math.max(views, 0);
+        this.time = Math.max(time, 0);
+        this.timeRestriction = time > 0;
+        this.viewRestriction = views > 0;
+        this.UUID = java.util.UUID.randomUUID().toString();
     }
 
     public String getCode() {
         return code;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public long getViews() {
+        return views;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setViews(long views) {
+        this.views = views;
     }
 
-    public Long getId() {
-        return id;
+    public long getTime() {
+        return time;
     }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
+
+    public boolean isTimeRestriction() {
+        return timeRestriction;
+    }
+
+    public boolean isViewRestriction() {
+        return viewRestriction;
+    }
+
+    @JsonIgnore
+    public String getUUID() {
+        return UUID;
+    }
+
 }
